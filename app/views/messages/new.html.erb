@@ -1,0 +1,39 @@
+
+<table>
+     <tr>
+    <th>Conversation</th>
+    <th></th>
+         <% @messages.each do |message| %>
+         <tr>
+         <% if (message.user_id == current_user.id)  %>
+         <td><%= @user_rec.firstname     %>  says :</td>
+         <% else  %>
+         <td><%=  @friend_rec.firstname%> says :</td>
+         <% end%>
+
+
+      <td><%= message.msg %></td><td>&nbsp;&nbsp;</td><td><%= message.created_at %> </td>
+      </tr>
+     
+     </tr>
+    <% end %> 
+</table>
+
+
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:message, url: user_friendship_messages_path ) do |f| %>
+     
+
+      <%= f.label :Messages %><br>
+      <%= f.text_field :msg, class: 'form-control' %><br><br>
+
+
+      <%= f.submit "Send", class: "btn btn-primary" %><br>
+    <% end %>
+    <li><%= link_to "Back", user_path(params[:user_id], params[:friendship_id]) %></li>
+    
+  </div>
+</div>

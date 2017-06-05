@@ -1,0 +1,48 @@
+<% provide(:title, 'Sign up') %>
+      <h2>
+        <%= pluralize(@user.errors.count, "error") %> prohibited
+        this article from being saved:
+<h1>Sign up</h1>
+
+
+<% if @user.errors.any? %>
+    <div id="error_explanation">
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= f.label :firstname %><br>
+      <%= f.text_field :firstname, class: 'form-control' %><br><br>
+      
+      <%= f.label :lastname %><br>
+      <%= f.text_field :lastname, class: 'form-control' %><br><br>
+      
+       <%= f.label :username %><br>
+      <%= f.text_field :username, class: 'form-control' %><br><br>
+
+      <%= f.label :email %><br>
+      <%= f.email_field :email, class: 'form-control' %><br><br>
+
+      <%= f.label :password %><br>
+      <%= f.password_field :password, class: 'form-control' %><br><br>
+
+      <%= f.label :password_confirmation, "Confirmation" %><br>
+      <%= f.password_field :password_confirmation, class: 'form-control' %><br><br>
+
+      <%= f.label :image %><br>
+      <%= f.file_field :image, class: 'form-control' %><br><br>
+
+      <%= f.submit "Create my account", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<li><%= link_to "Back", login_path %></li>

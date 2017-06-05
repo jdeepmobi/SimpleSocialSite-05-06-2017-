@@ -1,0 +1,85 @@
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
+
+
+
+
+ <% if logged_in? %>
+<h3>Welcome  <%= image_tag(@user.image.url)%><%= @user.firstname  %><%= @user.lastname  %></h3><br>
+
+
+<table>
+     <tr>
+    <th>Active Friends</th>
+    <th></th>
+        </tr><% @accepted_friends.each do |friend| %>
+    <tr>
+      <td><%= friend.firstname %>  <%= friend.lastname %></td>
+      
+      <td><%= link_to "Send Messages", new_user_friendship_message_path(@user.id,friend.id) %></td><br>
+      <td><%= link_to "Unfriend",user_friendship_path(@user.id,friend.id), :method => :delete, data: { confirm: 'Are you sure?' } %></td><br>
+     </tr>
+    <% end %> 
+   </table>
+
+
+    <table>
+     <tr><br><br>
+    <th>Listing Of All Users</th>
+    <th></th>
+        </tr><% @all_users.each do |user| %>
+    <tr>
+      <td><%= user.firstname %></td>
+      <td><%= user.lastname %></td>
+      <td><%= link_to "Send Friend Request", user_friendships_path(:user_id => current_user.id ,:friend_id => user), :method => :post %></td><br>
+    </tr>
+  <% end %> 
+</table>
+
+    <table>
+     <tr><br><br>
+    <th>Accept Friend Request</th>
+    <th></th>
+        </tr><% @pending_friends.each do |user| %>
+    <tr>
+      <td><%= user.firstname %>  <%= user.lastname %></td>
+      <!--<td><%= user.lastname %></td>-->
+      <td><%= link_to "Accept Request", user_friendship_path(@user.id, user.id), :method => :patch %></td><br>
+      <td><%= link_to "Decline",  user_friendship_path(@user.id,user.id), :method => :delete,data: { confirm: 'Are you sure?' } %></td><br>
+     </tr>
+    <% end %> 
+   </table>
+
+
+   <table>
+     <tr><br><br>
+    <th>Friend Request Sent to</th>
+    <th></th>
+        </tr><% @requested_friends.each do |user| %>
+    <tr>
+      <td><%= user.firstname %>  <%= user.lastname %></td>
+      <!--<td><%= user.lastname %></td> -->
+      
+     </tr>
+    <% end %> 
+   </table>
+
+
+
+
+
+
+         <!-- <li><%= link_to "Views Users",'#' %></li>  -->
+          
+              <li>
+                <%= link_to "Log out", logout_path, method: :delete %>
+              </li>
+               
+              </li>
+        <% else %>
+          <li><%= link_to "Log in", login_path %></li>
+
+
+
+ <% end %>
